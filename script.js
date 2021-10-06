@@ -8,25 +8,51 @@ displayText.textContent = "";
 const digits = document.querySelectorAll(".digits div button");
 digits.forEach(digit => {
     digit.addEventListener("click", () => {
-        if (currentOperator !== undefined) {
-            displayText.textContent = "" + digit.innerHTML
-        } else displayText.textContent += digit.innerHTML;
+        if (currentOperator === undefined
+        && numberA !== undefined) {
+            displayText.textContent += digit.innerHTML;
+        } else if (displayText.textContent == numberA) {
+            displayText.textContent = digit.innerHTML;
+        } else {
+            displayText.textContent += digit.innerHTML;
+        };
     });
 });
 
 const operators = document.querySelectorAll(".operators div button");
 operators.forEach(operator => {
     operator.addEventListener("click", () => {
-        if (numberA === undefined) {
-            numberA = parseFloat(displayText.innerHTML);
-            currentOperator = operator.innerHTML;
-        } else {
-            numberB = parseFloat(displayText.innerHTML);
-            operate(numberA, currentOperator, numberB);
-            numberA = parseFloat(displayText.textContent);
-        };
+            if (currentOperator !== undefined) {
+                let nextOperator = operator.innerHTML
+                equals();
+                numberA = parseFloat(displayText.innerHTML);
+                currentOperator = nextOperator
+            } else {
+                numberA = parseFloat(displayText.innerHTML);
+                currentOperator = operator.innerHTML;
+            };
     });
 });
+
+const clearBtn = document.getElementById("clear");
+clearBtn.addEventListener("click", () => {
+    displayText.textContent = "";
+    numberA = undefined;
+    currentOperator = undefined;
+    numberB = undefined;
+});
+
+const equalBtn = document.getElementById("equals");
+equalBtn.addEventListener("click", () => {
+    equals();
+});
+
+function equals() {
+    numberB = parseFloat(displayText.innerHTML);
+    operate(numberA, currentOperator, numberB);
+    numberA = undefined;
+    
+}
 
 function add(a, b) {
     displayText.textContent = a + b;
