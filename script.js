@@ -26,7 +26,8 @@ operators.forEach(operator => {
                 let nextOperator = operator.innerHTML
                 equals();
                 numberA = parseFloat(displayText.innerHTML);
-                currentOperator = nextOperator
+                currentOperator = nextOperator;
+                numberB = undefined;
             } else {
                 numberA = parseFloat(displayText.innerHTML);
                 currentOperator = operator.innerHTML;
@@ -50,9 +51,10 @@ equalBtn.addEventListener("click", () => {
 function equals() {
     numberB = parseFloat(displayText.innerHTML);
     operate(numberA, currentOperator, numberB);
-    numberA = undefined;
-    
-}
+    numberA = parseFloat(displayText.innerHTML);
+    currentOperator = undefined;
+    numberB = undefined;
+};
 
 function add(a, b) {
     displayText.textContent = a + b;
