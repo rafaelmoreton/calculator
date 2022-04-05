@@ -1,79 +1,84 @@
 let numberA;
 let numberB;
 let currentOperator;
-
-let displayText = document.querySelector(".display");
-displayText.textContent = "";
+let eraseDisplay = false;
 
 const digits = document.querySelectorAll(".digits div button");
+const operators = document.querySelectorAll(".operators div button");
+const clearBtn = document.getElementById("clear");
+const equalBtn = document.getElementById("equals");
+
+let displayText = document.querySelector(".display");
+displayText.textContent = "0";
+
 digits.forEach(digit => {
     digit.addEventListener("click", () => {
-        if (currentOperator === undefined
-        && numberA !== undefined) {
-            displayText.textContent += digit.innerHTML;
-        } else if (displayText.textContent == numberA) {
+        if (displayText.textContent === "0" ||
+            eraseDisplay === true) {
             displayText.textContent = digit.innerHTML;
-        } else {
+            eraseDisplay = false;
+        }
+        else {
             displayText.textContent += digit.innerHTML;
         };
     });
 });
 
-const operators = document.querySelectorAll(".operators div button");
 operators.forEach(operator => {
     operator.addEventListener("click", () => {
-            if (currentOperator !== undefined) {
-                let nextOperator = operator.innerHTML
-                equals();
-                numberA = parseFloat(displayText.innerHTML);
-                currentOperator = nextOperator;
-                numberB = undefined;
-            } else {
-                numberA = parseFloat(displayText.innerHTML);
-                currentOperator = operator.innerHTML;
-            };
+        if (currentOperator === undefined) {
+            currentOperator = operator.innerHTML;
+            numberA = parseFloat(displayText.textContent);
+        }
+        else {
+            numberB = parseFloat(displayText.textContent);
+            displayText.textContent = operate(numberA, currentOperator,numberB);
+            numberA = parseFloat(displayText.textContent);
+            currentOperator = operator.innerHTML;
+        };
+        eraseDisplay = true;
     });
 });
 
-const clearBtn = document.getElementById("clear");
 clearBtn.addEventListener("click", () => {
-    displayText.textContent = "";
+    displayText.textContent = "0";
     numberA = undefined;
-    currentOperator = undefined;
     numberB = undefined;
+    currentOperator = undefined;
+    eraseDisplay = false;
 });
 
-const equalBtn = document.getElementById("equals");
 equalBtn.addEventListener("click", () => {
     equals();
+    eraseDisplay = true;
 });
 
 function equals() {
-    numberB = parseFloat(displayText.innerHTML);
-    operate(numberA, currentOperator, numberB);
-    numberA = parseFloat(displayText.innerHTML);
-    currentOperator = undefined;
-    numberB = undefined;
+    if (currentOperator === undefined) {
+        return;
+    }
+    else {
+        numberB = parseFloat(displayText.textContent);
+        displayText.textContent = operate(numberA, currentOperator, numberB);
+        numberA = parseFloat(displayText.textContent);
+        currentOperator = undefined;
+    };
 };
 
 function add(a, b) {
-    displayText.textContent = a + b;
-    return;
+    return a + b;
 };
 
 function subtract(a, b) {
-    displayText.textContent = a - b;
-    return;
+    return a - b;
 };
 
 function multiply(a, b) {
-    displayText.textContent = a * b;
-    return;
+    return a * b;
 };
 
 function divide(a, b) {
-    displayText.textContent = a / b;
-    return;
+    return a / b;
 };
 
 function operate(a, operator, b) {
