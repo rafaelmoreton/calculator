@@ -7,7 +7,8 @@ const digits = document.querySelectorAll(".digits div button");
 const operators = document.querySelectorAll(".operators div button");
 const clearBtn = document.getElementById("clear");
 const equalBtn = document.getElementById("equals");
-const dotBtn = document.getElementById("dot")
+const dotBtn = document.getElementById("dot");
+const backBtn = document.getElementById("backspace");
 
 let displayText = document.querySelector(".display");
 displayText.textContent = "0";
@@ -40,6 +41,13 @@ operators.forEach(operator => {
         eraseDisplay = true;
     });
 });
+
+backBtn.addEventListener("click", () => {
+    displayText.textContent = displayText.textContent.slice(0, -1)
+    if (displayText.textContent === "") {
+        displayText.textContent = 0
+    }
+})
 
 dotBtn.addEventListener("click", () => {
     if (/\./.test(displayText.textContent)) {
