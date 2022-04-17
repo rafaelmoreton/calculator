@@ -13,62 +13,87 @@ const backBtn = document.getElementById("backspace");
 let displayText = document.querySelector(".display");
 displayText.textContent = "0";
 
-digits.forEach(digit => {
-    digit.addEventListener("click", () => {
-        if (displayText.textContent === "0" ||
-            eraseDisplay === true) {
-            displayText.textContent = digit.innerHTML;
-            eraseDisplay = false;
-        }
-        else {
-            displayText.textContent += digit.innerHTML;
-        };
-    });
-});
 
-operators.forEach(operator => {
-    operator.addEventListener("click", () => {
-        if (currentOperator === undefined) {
-            currentOperator = operator.innerHTML;
-            numberA = parseFloat(displayText.textContent);
-        }
-        else {
-            numberB = parseFloat(displayText.textContent);
-            displayText.textContent = operate(numberA, currentOperator,numberB);
-            numberA = parseFloat(displayText.textContent);
-            currentOperator = operator.innerHTML;
-        };
-        eraseDisplay = true;
-    });
-});
+// ######## Keyboard event listener ########
+addEventListener("keydown", (event) => {
 
-backBtn.addEventListener("click", () => {
-    displayText.textContent = displayText.textContent.slice(0, -1)
-    if (displayText.textContent === "") {
-        displayText.textContent = 0
+    // Digits
+    if (event.key >= 0 && event.key <= 9) {
+        insertDigit(event.key)
+    }
+    // Operators
+    else if (event.key === "+" || event.key === "-" ||
+    event.key === "*" || event.key === "/") {
+        insertOperator(event.key)
+    }
+    // Dot
+    else if (event.key === "." || event.key === ",") {
+        insertDot();
+    }
+    // Equals
+    else if (event.key === "=" || event.key === "Enter") {
+        equals();
+    }
+    // Backspace
+    else if (event.key === "Backspace") {
+        backspace();
+    }
+    // Clear
+    else if (event.key === "Delete") {
+        clear();
     }
 })
 
-dotBtn.addEventListener("click", () => {
+
+// ######## Buttons event listeners ########
+digits.forEach(digit => {
+    digit.addEventListener("click", () => insertDigit(digit.innerHTML));
+});
+
+operators.forEach(operator => {
+    operator.addEventListener("click", () => insertOperator(operator.innerHTML));
+});
+
+backBtn.addEventListener("click", () => backspace());
+
+dotBtn.addEventListener("click", () => insertDot());
+
+clearBtn.addEventListener("click", () => clear());
+
+equalBtn.addEventListener("click", () => equals());
+
+
+// ######## Input functions ########
+function insertOperator(operator) {
+    if (currentOperator === undefined) {
+        currentOperator = operator;
+        numberA = parseFloat(displayText.textContent);
+    }
+    else {
+        numberB = parseFloat(displayText.textContent);
+        displayText.textContent = operate(numberA, currentOperator,numberB);
+        numberA = parseFloat(displayText.textContent);
+        currentOperator = operator;
+    };
+    eraseDisplay = true;
+}
+
+function insertDigit(digit) {
+    if (displayText.textContent === "0" || eraseDisplay === true) {
+        displayText.textContent = digit;
+        eraseDisplay = false;
+    } else {
+        displayText.textContent += digit;
+    };
+};
+
+function insertDot() {
     if (/\./.test(displayText.textContent)) {
         return
     } else {
         displayText.textContent += "."
-    }
-})
-
-clearBtn.addEventListener("click", () => {
-    displayText.textContent = "0";
-    numberA = undefined;
-    numberB = undefined;
-    currentOperator = undefined;
-    eraseDisplay = false;
-});
-
-equalBtn.addEventListener("click", () => {
-    equals();
-    eraseDisplay = true;
-});
+    };
+};
 
 function equals() {
     if (currentOperator === undefined) {
@@ -80,8 +105,25 @@ function equals() {
         numberA = parseFloat(displayText.textContent);
         currentOperator = undefined;
     };
+    eraseDisplay = true;
 };
 
+function backspace() {
+    displayText.textContent = displayText.textContent.slice(0, -1)
+    if (displayText.textContent === "") {
+        displayText.textContent = 0
+    };
+};
+
+function clear() {
+    displayText.textContent = "0";
+    numberA = undefined;
+    numberB = undefined;
+    currentOperator = undefined;
+    eraseDisplay = false;
+};
+
+// ######## Math functions ########
 function add(a, b) {
     return a + b;
 };
