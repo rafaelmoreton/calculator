@@ -39,8 +39,12 @@ addEventListener("keydown", (event) => {
         backspace();
     }
     // Clear
-    else if (event.key === "Delete") {
+    else if (event.key === "Delete" || event.key === "Escape") {
         clear();
+    }
+    // Disable other keys' press event to avoid bugs
+    else {
+        event.preventDefault()
     }
 })
 
