@@ -10,7 +10,7 @@ const equalBtn = document.getElementById("equals");
 const dotBtn = document.getElementById("dot");
 const backBtn = document.getElementById("backspace");
 
-let displayText = document.querySelector(".display");
+let displayText = document.querySelector("#display");
 displayText.textContent = "0";
 
 
