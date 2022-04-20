@@ -12,7 +12,7 @@ body {
     height: 400px;
 }
 
-.display {
+#display {
     border: 2px solid blue;
     background-color: aquamarine;
     height: 80px;

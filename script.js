@@ -3,8 +3,8 @@ let numberB;
 let currentOperator;
 let eraseDisplay = false;
 
-const digits = document.querySelectorAll(".digits div button");
-const operators = document.querySelectorAll(".operators div button");
+const digits = document.querySelectorAll("button.digits");
+const operators = document.querySelectorAll("button.operators");
 const clearBtn = document.getElementById("clear");
 const equalBtn = document.getElementById("equals");
 const dotBtn = document.getElementById("dot");
