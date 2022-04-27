@@ -3,6 +3,7 @@ let numberB;
 let currentOperator;
 let eraseDisplay = false;
 
+const buttons = document.querySelectorAll("#buttons button")
 const digits = document.querySelectorAll("button.digits");
 const operators = document.querySelectorAll("button.operators");
 const clearBtn = document.getElementById("clear");
@@ -42,10 +43,10 @@ addEventListener("keydown", (event) => {
     else if (event.key === "Delete" || event.key === "Escape") {
         clear();
     }
-    // Disable other keys' press event to avoid bugs
-    else {
-        event.preventDefault()
-    }
+    // Tab could leave an unwanted button accidentally focused while using the calculator through a keyboard, leading to unexpected behavior.
+    else if (event.key === "Tab") {
+        event.preventDefault();
+    };
 })
 
 
@@ -66,6 +67,9 @@ clearBtn.addEventListener("click", () => clear());
 
 equalBtn.addEventListener("click", () => equals());
 
+buttons.forEach(button => {
+    button.addEventListener("click", () => button.blur());
+});
 
 // ######## Input functions ########
 function insertOperator(operator) {
