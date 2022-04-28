@@ -9,30 +9,35 @@ body {
 }
 
 #calculator {
-    border: 2px solid red;
-    background-color: pink;
+    font-family: rubik, sans-serif;
+    border: 5px solid palevioletred;
+    border-radius: 15px;
+    box-shadow: 0 0.4em 0 0.25em #aeaeae;
+    background-color: rgb(255, 218, 5);
     padding: 20px;
     margin: auto;
-    width: 300px;
-    height: 400px;
+    width: 400px;
+    height: 500px;
 }
 
 #display {
-    border: 2px solid blue;
-    background-color: aquamarine;
-    height: 80px;
+    font-size: 2em;
+    border: 4px solid rgb(118, 114, 0);
+    border-radius: 5px;
+    background-color: rgb(171, 230, 200);
+    height: 100px;
     margin-bottom: 20px;
 }
 
 #buttons {
     display: flex;
     flex-direction: column;
-    height: calc(300px - 4px)
+    gap: 12px;
 }
 
 .columns {
     display: flex;
-    gap: 5px;
+    gap: 10px;
     flex: 1 1 0%;
 }
 
@@ -41,20 +46,20 @@ body {
     display: flex;
     flex: 1 1 0%;
     flex-direction: column;
-    gap: 5px;
+    gap: 12px;
 }
 
 .column-1 button {
-    height: 115px;
+    height: 143px;
     gap: 5px;
 }
 
 .column-1 ~ div button {
-    height: 55px;
+    height: 65px;
 }
 
 .row {
-    height: 55px;
+    height: 65px;
 }
 
 #percentage {
@@ -63,5 +68,21 @@ body {
 
 button {
     font-size: 2em;
-    font-family: rubik, sans-serif;
+    font-family: inherit;
+    background-color: #fdb9fb;
+    border: 2px solid palevioletred;
+    border-radius: 12px;
+    box-shadow: 0 0.1em 0 0.04em #4c344e, 0 0.15em 0 0.1em #aeaeae;
+}
+
+button:hover {
+    background: #fcf5b7;
+    box-shadow: 0 0.05em 0 0.008em #4c344e, 0 0.12em 0 0.03em #aeaeae;
+    transform: translateY(0.05em);
+}
+
+button:active {
+    background: #d5b8ee;
+    box-shadow: 0 0.06em 0 0.01em #aeaeae;
+    transform: translateY(0.1em);
 }
