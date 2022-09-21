@@ -1,5 +1,6 @@
 # Calculator
 ![Screenshot](/demo/demo-calculator.png)
+
 This is a browser calculator made as an [assignment from The Odin Project](https://www.theodinproject.com/lessons/foundations-calculator) where I've got to use all the fundamentals of HTML, CSS and JavaScript.
 
 ## Demo
